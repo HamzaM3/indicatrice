@@ -2,6 +2,8 @@
 
 This is a library for cleanly validating the type of data.
 
+(I am not a professional yet, if anyone can help me or teach me how to do libraries properly it would extremely nice)
+
 This is version 0 where it is possible to test whether the input is JSON-able i.e. either:
 - a string
 - a number
