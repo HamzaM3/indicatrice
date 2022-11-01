@@ -52,5 +52,6 @@ describe('number', () => {
     expect(() => indicator.number(null)).toThrow()
     expect(() => indicator.number(undefined)).toThrow()
     expect(() => indicator.number(Symbol.toString)).toThrow()
+    expect(() => indicator.number(() => 'f')).toThrow()
   })
 })
