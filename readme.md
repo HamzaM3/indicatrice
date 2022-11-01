@@ -2,9 +2,11 @@
 
 This is a library for cleanly validating the type of data.
 
-(I am not a professional yet, if anyone can help me or teach me how to do libraries properly it would extremely nice)
+(I am not a professional yet, if anyone can help me or teach me how to do libraries properly it would be extremely nice)
 
-This is version 0 where it is possible to test whether the input is JSON-able i.e. either:
+## Definition of JSON-able
+
+It is a value that is either:
 - a string
 - a number
 - a boolean
@@ -12,13 +14,18 @@ This is version 0 where it is possible to test whether the input is JSON-able i.
 - an array of JSON-able
 - an object of JSON-able with string keys
 
+Unlike the official one, we allow `undefined`
+
 
 ## API
 
-### List of available functions:
+All the function take the value, test whether the value is of the proper type. If it is, it returns it as is, if not it throws an Error
 
-- `indicatrice.json`
+## List of available indicatrice function:
 
-### `indicatrice.json`
-
-Takes a value as argument and returns it (with no modification) if it is JSON-able (as defined above) or throws an error if not.
+- `indicatrice.json`: JSON-able values
+- `indicatrice.number`: Number
+- `indicatrice.string`: String
+- `indicatrice.boolean`: Boolean
+- `indicatrice.object`: Object (that is not an Array or a Function)
+- `indicatrice.array`: Array
