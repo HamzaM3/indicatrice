@@ -1,4 +1,4 @@
-# Indicatrice
+# indicatrice
 
 This is a library for cleanly validating the type of data.
 
