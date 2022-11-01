@@ -1,4 +1,4 @@
-import indicator from '../src/index';
+import * as indicator from '../src/index';
 
 describe('json validation', () => {
     it('is defined', () => {
