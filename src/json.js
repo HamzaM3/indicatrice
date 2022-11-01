@@ -6,6 +6,9 @@ export const json = function json(val) {
       case 'boolean':
           return val;
       case 'object':
+          if (Object.keys(val).some(key => typeof key !== 'string'))
+            throw new Error('input value is not jsonable')
+
           if(Array.isArray(val)) val.forEach(json)
           else Object.keys(val).forEach(key => json(val[key]))
           return val;

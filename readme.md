@@ -10,7 +10,7 @@ This is version 0 where it is possible to test whether the input is JSON-able i.
 - a boolean
 - null or undefined
 - an array of JSON-able
-- an object of JSON-able
+- an object of JSON-able with string keys
 
 
 ## API
