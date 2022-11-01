@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HamzaM3/indicator.git"
+    "url": "git+https://github.com/HamzaM3/indicatrice.git"
   },
   "author": "HamzaM3",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HamzaM3/indicator/issues"
+    "url": "https://github.com/HamzaM3/indicatrice/issues"
   },
-  "homepage": "https://github.com/HamzaM3/indicator#readme",
+  "homepage": "https://github.com/HamzaM3/indicatrice#readme",
   "dependencies": {
     "@babel/preset-env": "^7.19.4",
     "babel-jest": "^29.2.1",
