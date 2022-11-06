@@ -1,3 +1,5 @@
+import indicatorSymbol from "./indicatorSymbol";
+
 export const json = function json(val) {
   if (val === null || val === undefined) return val;
   switch (typeof val) {
@@ -16,3 +18,5 @@ export const json = function json(val) {
           throw new Error('input value is not jsonable')
   }
 }
+
+json[indicatorSymbol] = true;
