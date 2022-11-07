@@ -2,7 +2,7 @@
 
 This is a library for cleanly validating the type of data.
 
-(I am not a professional yet, if anyone can help me or teach me how to do libraries properly it would be extremely nice)
+Please, send issues if you find any bugs or want any improvement on the library. Thank you for using *indicatrice* !
 
 ## Definition of JSON-able
 
@@ -21,7 +21,7 @@ Unlike the official one, we allow `undefined`
 
 ## List of available indicator function:
 
-All the function take the value, test whether the value is of the proper type. If it is, it returns it as is, if not it throws an Error
+All the functions below take a value, test whether it is of the proper type. If it is, it returns it as is, if not it throws an Error
 - `indicatrice.json`: JSON-able values
 - `indicatrice.number`: Number
 - `indicatrice.string`: String
