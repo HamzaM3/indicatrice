@@ -29,7 +29,7 @@ describe('object', () => {
     expect(typeof object).toBe('function');
   })
 
-  it('validates a simple object', () => {
+  it('validates correct simple objects', () => {
     const validator = object({
       a: number,
       b: string,
@@ -45,7 +45,7 @@ describe('object', () => {
     expect(validator(data)).toEqual(data)
   });
 
-  it('invalidates a simple object', () => {
+  it('invalidates wrong simple objects', () => {
     const validator = object({
       a: number,
       b: string,
@@ -77,7 +77,7 @@ describe('object', () => {
     expect(() => validator(data)).toThrow('input value is not a boolean');
   });
 
-  it('validates nested object', () => {
+  it('validates correct nested objects', () => {
     const validator = object({
       a: object({
         aa: number,
@@ -107,5 +107,111 @@ describe('object', () => {
     }
 
     expect(validator(data)).toEqual(data);
-  })
+  });
+
+  it('invalidates wrong nested objects', () => {
+    const validator = object({
+      a: object({
+        aa: number,
+        ab: boolean,
+      }),
+      b: object({
+        ba: string,
+        bb: object({
+          bba: boolean,
+        })
+      }),
+      c: number,
+    })
+
+    let data = {
+      a: {
+        aa: 3,
+        ab: true,
+      },
+      b: {
+        ba: 'str',
+        bb: {
+          bba: true,
+        }
+      },
+      c: 33,
+    }
+
+    expect(validator(data)).toEqual(data);
+
+    data = {
+      a: {
+        aa: "str",
+        ab: true,
+      },
+      b: {
+        ba: 'str',
+        bb: {
+          bba: true,
+        }
+      },
+      c: 33,
+    }
+
+    expect(() => validator(data)).toThrow("input value is not a number");
+
+    data = {
+      a: {
+        aa: 3,
+      },
+      b: {
+        ba: 'str',
+        bb: {
+          bba: true,
+        }
+      },
+      c: 33,
+    }
+
+    expect(() => validator(data)).toThrow("input value doesn't have the right number of fields");
+
+    data = {
+      a: undefined,
+      b: {
+        ba: 'str',
+        bb: {
+          bba: true,
+        }
+      },
+      c: 33,
+    }
+
+    expect(() => validator(data)).toThrow("input value is not an object");
+
+    data = {
+      a: {
+        aa: 3,
+        ab: false,
+      },
+      b: {
+        ba: 'str',
+        bb: {
+          bba: 3,
+        }
+      },
+      c: 33,
+    }
+
+    expect(() => validator(data)).toThrow("input value is not a boolean");
+
+    data = {
+      a: {
+        aa: 3,
+        ab: false,
+      },
+      b: {
+        x: 'str',
+        y: ['a'],
+      },
+      c: 33,
+    }
+
+    expect(() => validator(data)).toThrow("input value is not a string");
+  });
 });
