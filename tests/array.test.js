@@ -18,7 +18,7 @@ describe('array.type', () => {
     expect(() => array.type(true)).toThrow()
     expect(() => array.type(null)).toThrow()
     expect(() => array.type(undefined)).toThrow()
-    expect(() => array.type(Symbol.toString)).toThrow()
+    expect(() => array.type(Symbol())).toThrow()
     expect(() => array.type(() => f)).toThrow()
   })
 });

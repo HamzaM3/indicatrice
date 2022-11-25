@@ -18,7 +18,7 @@ describe('object.type', () => {
     expect(() => object.type(true)).toThrow()
     expect(() => object.type(null)).toThrow()
     expect(() => object.type(undefined)).toThrow()
-    expect(() => object.type(Symbol.toString)).toThrow()
+    expect(() => object.type(Symbol())).toThrow()
     expect(() => object.type(() => f)).toThrow()
   })
 });
