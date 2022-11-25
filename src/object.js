@@ -1,4 +1,6 @@
 import indicatorSymbol from "./indicatorSymbol";
+import { ValidationError } from '../src/ValidationError';
+import { stringify } from "./stringify";
 
 export const object = fields => {
   return val => {
@@ -19,7 +21,7 @@ export const object = fields => {
 
 object.type = val => {
   if (typeof val === 'object' && val !== null && !Array.isArray(val)) return val
-  throw new Error(`input value is not an object`);
+  throw new ValidationError(`input value is not a non-array object: (typeof: ${ typeof val }) (value: ${ stringify(val) })`);
 }
 
 object[indicatorSymbol] = true;

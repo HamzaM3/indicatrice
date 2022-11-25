@@ -1,4 +1,5 @@
 import { number, object, string, boolean } from '../src';
+import { ValidationError } from '../src/ValidationError';
 
 describe('object.type', () => {
   it('is defined', () => {
@@ -12,14 +13,14 @@ describe('object.type', () => {
   })
 
   it('invalidates any other type', () => {
-    expect(() => object.type([3, 4, 5])).toThrow()
-    expect(() => object.type(34)).toThrow()
-    expect(() => object.type('str')).toThrow()
-    expect(() => object.type(true)).toThrow()
-    expect(() => object.type(null)).toThrow()
-    expect(() => object.type(undefined)).toThrow()
-    expect(() => object.type(Symbol())).toThrow()
-    expect(() => object.type(() => f)).toThrow()
+    expect(() => object.type([3, 4, 5])).toThrow(new ValidationError(`input value is not a non-array object: (typeof: object) (value: [3,4,5])`))
+    expect(() => object.type(34)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: number) (value: 34)`))
+    expect(() => object.type('str')).toThrow(new ValidationError(`input value is not a non-array object: (typeof: string) (value: "str")`))
+    expect(() => object.type(true)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: boolean) (value: true)`))
+    expect(() => object.type(null)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: object) (value: null)`))
+    expect(() => object.type(undefined)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: undefined) (value: undefined)`))
+    expect(() => object.type(Symbol())).toThrow(new ValidationError(`input value is not a non-array object: (typeof: symbol) (value: undefined)`))
+    expect(() => object.type(() => f)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: function) (value: function anonymous)`))
   })
 });
 
@@ -58,7 +59,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow('input value is not a number');
+    expect(() => validator(data)).toThrow(new ValidationError('input value is not a number but of type boolean. (value: false)'));
 
     data = {
       a: 3,
@@ -66,7 +67,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow('input value is not a string');
+    expect(() => validator(data)).toThrow(new ValidationError('input value is not a string but of type number. (value: 4)'));
 
     data = {
       a: 3,
@@ -74,7 +75,7 @@ describe('object', () => {
       c: 5,
     };
 
-    expect(() => validator(data)).toThrow('input value is not a boolean');
+    expect(() => validator(data)).toThrow(new ValidationError('input value is not a boolean but of type number. (value: 5)'));
   });
 
   it('validates correct nested objects', () => {
@@ -154,7 +155,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow("input value is not a number");
+    expect(() => validator(data)).toThrow(new ValidationError('input value is not a number but of type string. (value: "str")'));
 
     data = {
       a: {
@@ -182,7 +183,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow("input value is not an object");
+    expect(() => validator(data)).toThrow(new ValidationError("input value is not a non-array object: (typeof: undefined) (value: undefined)"));
 
     data = {
       a: {
@@ -198,7 +199,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow("input value is not a boolean");
+    expect(() => validator(data)).toThrow(new ValidationError("input value is not a boolean but of type number. (value: 3)"));
 
     data = {
       a: {
@@ -212,6 +213,6 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow("input value is not a string");
+    expect(() => validator(data)).toThrow(new ValidationError("input value is not a string but of type undefined. (value: undefined)"));
   });
 });
