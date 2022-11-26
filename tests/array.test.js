@@ -35,7 +35,7 @@ describe('array', () => {
     let data = [3, 4, 2];
     expect(validator(data)).toEqual(data);
     data = ['3', 4, 2];
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a number but of type string. (value: "3")'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: [0]) (indicator: number) (typeof value: string) (value: "3") (original value: ["3",4,2])');
   })
 
   it('validates arrays of boolean type', () => {
@@ -66,6 +66,6 @@ describe('array', () => {
       {a: {b: -1, c: 'cao'}, d: false, e: [3, 4, 5]},
       {a: {b: 2, c: ''}, d: true, e: []},
     ];
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a string but of type number. (value: 4)'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: [0].a.c) (indicator: string) (typeof value: number) (value: 4) (original value: [{"a":{"b":3,"c":4},"d":true,"e":[3]},{"a":{"b":-1,"c":"cao"},"d":false,"e":[3,4,5]},{"a":{"b":2,"c":""},"d":true,"e":[]}])');
   })
 })

@@ -1,5 +1,4 @@
 import * as indicatrice from '../src';
-import { ValidationError } from '../src/ValidationError';
 
 describe('number', () => {
   it('is defined', () => {
@@ -46,13 +45,13 @@ describe('number', () => {
   })
 
   it('invalidates any other type', () => {
-    expect(() => indicatrice.number('34')).toThrow(new ValidationError('input value is not a number but of type string. (value: "34")'))
-    expect(() => indicatrice.number(true)).toThrow(new ValidationError('input value is not a number but of type boolean. (value: true)'))
-    expect(() => indicatrice.number({a: 3})).toThrow(new ValidationError('input value is not a number but of type object. (value: {"a":3})'))
-    expect(() => indicatrice.number([3, 'e'])).toThrow(new ValidationError('input value is not a number but of type object. (value: [3,"e"])'))
-    expect(() => indicatrice.number(null)).toThrow(new ValidationError('input value is not a number but of type object. (value: null)'))
-    expect(() => indicatrice.number(undefined)).toThrow(new ValidationError('input value is not a number but of type undefined. (value: undefined)'))
-    expect(() => indicatrice.number(Symbol())).toThrow(new ValidationError('input value is not a number but of type symbol. (value: undefined)'))
-    expect(() => indicatrice.number(() => 'f')).toThrow(new ValidationError('input value is not a number but of type function. (value: function anonymous)'))
+    expect(() => indicatrice.number([3, 4, 5])).toThrow('Input has been invalidated: (indicator: number) (typeof value: object) (value: [3,4,5])')
+    expect(() => indicatrice.number('34')).toThrow('Input has been invalidated: (indicator: number) (typeof value: string) (value: "34")')
+    expect(() => indicatrice.number({a: 3})).toThrow('Input has been invalidated: (indicator: number) (typeof value: object) (value: {"a":3})')
+    expect(() => indicatrice.number(true)).toThrow('Input has been invalidated: (indicator: number) (typeof value: boolean) (value: true)')
+    expect(() => indicatrice.number(null)).toThrow('Input has been invalidated: (indicator: number) (typeof value: object) (value: null)')
+    expect(() => indicatrice.number(undefined)).toThrow('Input has been invalidated: (indicator: number) (typeof value: undefined) (value: undefined)')
+    expect(() => indicatrice.number(Symbol())).toThrow('Input has been invalidated: (indicator: number) (typeof value: symbol) (value: undefined)')
+    expect(() => indicatrice.number(() => f)).toThrow('Input has been invalidated: (indicator: number) (typeof value: function) (value: function anonymous)')
   })
 })

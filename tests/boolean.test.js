@@ -1,5 +1,4 @@
 import * as indicatrice from '../src';
-import { ValidationError } from '../src/ValidationError';
 
 describe('boolean', () => {
   it('is defined', () => {
@@ -15,13 +14,13 @@ describe('boolean', () => {
   })
 
   it('invalidates any other type', () => {
-    expect(() => indicatrice.boolean('34')).toThrow(new ValidationError('input value is not a boolean but of type string. (value: "34")'))
-    expect(() => indicatrice.boolean([3, 4, 5])).toThrow(new ValidationError('input value is not a boolean but of type object. (value: [3,4,5])'))
-    expect(() => indicatrice.boolean(34)).toThrow(new ValidationError('input value is not a boolean but of type number. (value: 34)'))
-    expect(() => indicatrice.boolean({a: 3})).toThrow(new ValidationError('input value is not a boolean but of type object. (value: {"a":3})'))
-    expect(() => indicatrice.boolean(null)).toThrow(new ValidationError('input value is not a boolean but of type object. (value: null)'))
-    expect(() => indicatrice.boolean(undefined)).toThrow(new ValidationError('input value is not a boolean but of type undefined. (value: undefined)'))
-    expect(() => indicatrice.boolean(Symbol())).toThrow(new ValidationError('input value is not a boolean but of type symbol. (value: undefined)'))
-    expect(() => indicatrice.boolean(() => f)).toThrow(new ValidationError('input value is not a boolean but of type function. (value: function anonymous)'))
+    expect(() => indicatrice.boolean([3, 4, 5])).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: object) (value: [3,4,5])')
+    expect(() => indicatrice.boolean(34)).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: number) (value: 34)')
+    expect(() => indicatrice.boolean({a: 3})).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: object) (value: {"a":3})')
+    expect(() => indicatrice.boolean('34')).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: string) (value: "34")')
+    expect(() => indicatrice.boolean(null)).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: object) (value: null)')
+    expect(() => indicatrice.boolean(undefined)).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: undefined) (value: undefined)')
+    expect(() => indicatrice.boolean(Symbol())).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: symbol) (value: undefined)')
+    expect(() => indicatrice.boolean(() => f)).toThrow('Input has been invalidated: (indicator: boolean) (typeof value: function) (value: function anonymous)')
   })
 });

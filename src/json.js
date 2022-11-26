@@ -10,13 +10,13 @@ export const json = function json(val) {
           return val;
       case 'object':
           if (Object.keys(val).some(key => typeof key !== 'string'))
-          throw new ValidationError(`input value is not jsonable`);
+            throw new ValidationError({ errorType: 'NOT_JSONABLE' });
 
-          if(Array.isArray(val)) val.forEach(json)
+          if(Array.isArray(val)) val.forEach(v => json(v))
           else Object.keys(val).forEach(key => json(val[key]))
           return val;
       default:
-        throw new ValidationError(`input value is not jsonable`);
+        throw new ValidationError({ errorType: 'NOT_JSONABLE' });
   }
 }
 

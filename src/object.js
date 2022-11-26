@@ -1,29 +1,32 @@
 import indicatorSymbol from "./indicatorSymbol";
 import { ValidationError } from '../src/ValidationError';
-import { stringify } from "./stringify";
 
 export const object = fields => {
-  return val => {
-    object.type(val);
+  const res = (val, path=[], originalValue) => {
+    originalValue = originalValue === undefined ? val : originalValue;
+
+    object.type(val, path, originalValue);
 
     if (Object.keys(val).length !== Object.keys(fields).length)
-      throw new Error(`input value doesn't have the right number of fields`);
+      throw new ValidationError({ errorType: 'WRONG_NUMBER_FIELD', expected: Object.keys(fields), received: Object.keys(val), path, originalValue });
 
     for (const key of Object.keys(fields)) {
-      if (!fields[key][indicatorSymbol]) new Error('field is not an indicator function');
+      if (!fields[key][indicatorSymbol])
+        throw new ValidationError({ errorType: 'FIELD_IS_NOT_AN_INDICATOR', path: [...path, key] });
 
-      fields[key](val[key]);
+      fields[key](val[key], [...path, key], originalValue);
     }
 
     return val;
   }
+
+  res[indicatorSymbol] = true;
+  return res;
 }
 
-object.type = val => {
+object.type = (val, path, originalValue) => {
   if (typeof val === 'object' && val !== null && !Array.isArray(val)) return val
-  throw new ValidationError(`input value is not a non-array object: (typeof: ${ typeof val }) (value: ${ stringify(val) })`);
+  throw new ValidationError({ errorType: 'WRONG_TYPE', type: 'non-array object', value: val, path, originalValue });
 }
-
-object[indicatorSymbol] = true;
 
 object.type[indicatorSymbol] = true;

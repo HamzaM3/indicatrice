@@ -1,11 +1,10 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { stringify } from "./stringify";
 import { ValidationError } from './ValidationError'
 
 
-export const number = val => {
+export const number = (val, path, originalValue) => {
   if (typeof val === 'number') return val
-  throw new ValidationError(`input value is not a number but of type ${ typeof val }. (value: ${ stringify(val) })`);
+  throw new ValidationError({ errorType: 'WRONG_TYPE', type: 'number', value: val, path, originalValue });
 }
 
 number[indicatorSymbol] = true;

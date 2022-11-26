@@ -1,4 +1,4 @@
-import { stringify } from "../src/stringify"
+import { stringify } from "../src/utils"
 
 describe('stringify', () => {
   it('is defined', () => {

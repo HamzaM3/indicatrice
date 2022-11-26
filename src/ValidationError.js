@@ -1,8 +1,9 @@
-import { stringify } from "./stringify";
+import { stringify, pathToString } from "./utils";
 
 export class ValidationError extends Error {
   constructor (errorData) {
-    const { errorType, path, originalValue} = errorData;
+    let { errorType, path, originalValue} = errorData;
+    path = path && pathToString(path);
     let message;
     switch (errorType) {
       case 'WRONG_TYPE':
@@ -17,14 +18,15 @@ export class ValidationError extends Error {
         message = `${path} is not a correct indicator`
         break;
       case 'NOT_JSONABLE':
-        message = `Input is not JSONABLE${ path ? `: (path: ${path})` : ''}`;
+        message = `Input is not JSONABLE`;
         break;
       default:
         message = `indicatrice didn't not trigger this error ! Open an issue please !`
         break;
     }
+    
     super(message)
-
+    this.name = 'ValidationError'
     this.errorData = errorData;
   }
 }

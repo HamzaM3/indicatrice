@@ -1,10 +1,9 @@
 import indicatorSymbol from "./indicatorSymbol";
 import { ValidationError } from '../src/ValidationError';
-import { stringify } from "./stringify";
 
-export const boolean = val => {
+export const boolean = (val, path, originalValue) => {
   if (typeof val === 'boolean') return val
-  throw new ValidationError(`input value is not a boolean but of type ${ typeof val }. (value: ${ stringify(val) })`);
+  throw new ValidationError({ errorType: 'WRONG_TYPE', type: 'boolean', value: val, path, originalValue});
 }
 
 boolean[indicatorSymbol] = true;

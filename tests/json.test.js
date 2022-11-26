@@ -1,5 +1,4 @@
 import * as indicatrice from '../src/index';
-import { ValidationError } from '../src/ValidationError';
 
 describe('json validation', () => {
     it('is defined', () => {
@@ -23,9 +22,9 @@ describe('json validation', () => {
     })
 
     it('invalidates functions, bigint and symbols', () => {
-        expect(() => indicatrice.json(Symbol.toStringTag)).toThrow(new ValidationError(`input value is not jsonable`));
-        expect(() => indicatrice.json(() => 'im a function')).toThrow(new ValidationError(`input value is not jsonable`));
-        expect(() => indicatrice.json(1n)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(Symbol.toStringTag)).toThrow("Input is not JSONABLE");
+        expect(() => indicatrice.json(() => 'im a function')).toThrow("Input is not JSONABLE");
+        expect(() => indicatrice.json(1n)).toThrow("Input is not JSONABLE");
     })
 
     it('validates array of primitive values', () => {
@@ -58,23 +57,23 @@ describe('json validation', () => {
 
     it('invalidates nested array of non-POJO values', () => {
         let data = ['string', [34, ''], [() => 'the value', [-1, null]], undefined, null];
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
 
         data = ['string', [34, ''], [23n, [-1, null]], undefined, null];
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
 
         data = ['string', [34, Symbol.toPrimitive], [23, [-1, null]], undefined, null];
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
     })
 
     it('invalidates nested object of non-POJO values', () => {
         let data = {str: {substr: 'string', k: true}, num: () => 'hehe', boo: true, u: {sub: {a: undefined, k:32}, a: 43}, n: null};
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
 
         data = {str: {substr: 'string', k: true}, num: 'ho', boo: true, u: {sub: {a: undefined, k: 34n}, a: 43}, n: null};
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
 
         data = {str: {substr: 'string', k: Symbol()}, num: 'ho', boo: true, u: {sub: {a: undefined, k: 'r'}, a: 43}, n: null};
-        expect(() => indicatrice.json(data)).toThrow(new ValidationError(`input value is not jsonable`));
+        expect(() => indicatrice.json(data)).toThrow("Input is not JSONABLE");
     })
 })

@@ -1,5 +1,7 @@
-import { number, object, string, boolean } from '../src';
+import * as indicatrice from '../src';
 import { ValidationError } from '../src/ValidationError';
+
+const { number, object, string, boolean } = indicatrice;
 
 describe('object.type', () => {
   it('is defined', () => {
@@ -13,14 +15,14 @@ describe('object.type', () => {
   })
 
   it('invalidates any other type', () => {
-    expect(() => object.type([3, 4, 5])).toThrow(new ValidationError(`input value is not a non-array object: (typeof: object) (value: [3,4,5])`))
-    expect(() => object.type(34)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: number) (value: 34)`))
-    expect(() => object.type('str')).toThrow(new ValidationError(`input value is not a non-array object: (typeof: string) (value: "str")`))
-    expect(() => object.type(true)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: boolean) (value: true)`))
-    expect(() => object.type(null)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: object) (value: null)`))
-    expect(() => object.type(undefined)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: undefined) (value: undefined)`))
-    expect(() => object.type(Symbol())).toThrow(new ValidationError(`input value is not a non-array object: (typeof: symbol) (value: undefined)`))
-    expect(() => object.type(() => f)).toThrow(new ValidationError(`input value is not a non-array object: (typeof: function) (value: function anonymous)`))
+    expect(() => indicatrice.object.type([3, 4, 5])).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: object) (value: [3,4,5])')
+    expect(() => indicatrice.object.type('34')).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: string) (value: "34")')
+    expect(() => indicatrice.object.type(34)).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: number) (value: 34)')
+    expect(() => indicatrice.object.type(true)).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: boolean) (value: true)')
+    expect(() => indicatrice.object.type(null)).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: object) (value: null)')
+    expect(() => indicatrice.object.type(undefined)).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: undefined) (value: undefined)')
+    expect(() => indicatrice.object.type(Symbol())).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: symbol) (value: undefined)')
+    expect(() => indicatrice.object.type(() => f)).toThrow('Input has been invalidated: (indicator: non-array object) (typeof value: function) (value: function anonymous)')
   })
 });
 
@@ -59,7 +61,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a number but of type boolean. (value: false)'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: number) (typeof value: boolean) (value: false) (original value: {"a":false,"b":"str","c":true})');
 
     data = {
       a: 3,
@@ -67,7 +69,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a string but of type number. (value: 4)'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b) (indicator: string) (typeof value: number) (value: 4) (original value: {"a":3,"b":4,"c":true})');
 
     data = {
       a: 3,
@@ -75,7 +77,7 @@ describe('object', () => {
       c: 5,
     };
 
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a boolean but of type number. (value: 5)'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .c) (indicator: boolean) (typeof value: number) (value: 5) (original value: {"a":3,"b":"str","c":5})');
   });
 
   it('validates correct nested objects', () => {
@@ -155,7 +157,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow(new ValidationError('input value is not a number but of type string. (value: "str")'));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a.aa) (indicator: number) (typeof value: string) (value: "str") (original value: {"a":{"aa":"str","ab":true},"b":{"ba":"str","bb":{"bba":true}},"c":33})');
 
     data = {
       a: {
@@ -170,7 +172,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow("input value doesn't have the right number of fields");
+    expect(() => validator(data)).toThrow('Incorrect amount of object fields: (path: .a) (expected fields: ["aa","ab"]) (received fields: ["aa"]) (original value: {"a":{"aa":3},"b":{"ba":"str","bb":{"bba":true}},"c":33})');
 
     data = {
       a: undefined,
@@ -183,7 +185,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow(new ValidationError("input value is not a non-array object: (typeof: undefined) (value: undefined)"));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: non-array object) (typeof value: undefined) (value: undefined) (original value: {"b":{"ba":"str","bb":{"bba":true}},"c":33})');
 
     data = {
       a: {
@@ -199,7 +201,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow(new ValidationError("input value is not a boolean but of type number. (value: 3)"));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.bb.bba) (indicator: boolean) (typeof value: number) (value: 3) (original value: {"a":{"aa":3,"ab":false},"b":{"ba":"str","bb":{"bba":3}},"c":33})');
 
     data = {
       a: {
@@ -213,6 +215,6 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow(new ValidationError("input value is not a string but of type undefined. (value: undefined)"));
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.ba) (indicator: string) (typeof value: undefined) (value: undefined) (original value: {"a":{"aa":3,"ab":false},"b":{"x":"str","y":["a"]},"c":33})');
   });
 });
