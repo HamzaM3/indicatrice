@@ -13,14 +13,14 @@ describe('array.type', () => {
   })
 
   it('invalidates any other type', () => {
-    expect(() => array.type('34')).toThrow(new ValidationError('input value is not an array: (typeof: string) (value: "34")'))
-    expect(() => array.type(34)).toThrow(new ValidationError('input value is not an array: (typeof: number) (value: 34)'))
-    expect(() => array.type({a: 3})).toThrow(new ValidationError('input value is not an array: (typeof: object) (value: {"a":3})'))
-    expect(() => array.type(true)).toThrow(new ValidationError('input value is not an array: (typeof: boolean) (value: true)'))
-    expect(() => array.type(null)).toThrow(new ValidationError('input value is not an array: (typeof: object) (value: null)'))
-    expect(() => array.type(undefined)).toThrow(new ValidationError('input value is not an array: (typeof: undefined) (value: undefined)'))
-    expect(() => array.type(Symbol())).toThrow(new ValidationError('input value is not an array: (typeof: symbol) (value: undefined)'))
-    expect(() => array.type(() => f)).toThrow(new ValidationError('input value is not an array: (typeof: function) (value: function anonymous)'))
+    expect(() => array.type('34')).toThrow('Input has been invalidated: (indicator: array) (typeof value: string) (value: "34")')
+    expect(() => array.type(34)).toThrow('Input has been invalidated: (indicator: array) (typeof value: number) (value: 34)')
+    expect(() => array.type({a: 3})).toThrow('Input has been invalidated: (indicator: array) (typeof value: object) (value: {"a":3})')
+    expect(() => array.type(true)).toThrow('Input has been invalidated: (indicator: array) (typeof value: boolean) (value: true)')
+    expect(() => array.type(null)).toThrow('Input has been invalidated: (indicator: array) (typeof value: object) (value: null)')
+    expect(() => array.type(undefined)).toThrow('Input has been invalidated: (indicator: array) (typeof value: undefined) (value: undefined)')
+    expect(() => array.type(Symbol())).toThrow('Input has been invalidated: (indicator: array) (typeof value: symbol) (value: undefined)')
+    expect(() => array.type(() => f)).toThrow('Input has been invalidated: (indicator: array) (typeof value: function) (value: function anonymous)')
   })
 });
 
