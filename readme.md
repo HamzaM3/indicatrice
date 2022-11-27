@@ -78,3 +78,13 @@ const validator = array(object({
 const data = // some data
 validator(data);
 ```
+
+## Twitter api example
+
+I propose to use this library for API response validation. Sometimes, API can be modified or can be maliciously hacked, it is a good security measure to have it validated by some light type validation method. I have prepared an example using a [Twitter API](https://developer.twitter.com/en/docs/twitter-api/tweets/search/quick-start/recent-search) response.
+
+Check out the [example](https://github.com/HamzaM3/indicatrice/tree/main/example) directory to analyze how I suggest you use this library.
+
+## Things to know about types
+
+This section will be filled with information about types in Javascript. This is just to contextualize you on how types work in JS. It's made for new people so that they understand why some weird things can happen.

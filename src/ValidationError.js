@@ -2,18 +2,18 @@ import { stringify, pathToString } from "./utils";
 
 export class ValidationError extends Error {
   constructor (errorData) {
-    let { errorType, path, originalValue} = errorData;
+    let { errorType, path } = errorData;
     path = path && pathToString(path);
     let message;
     switch (errorType) {
       case 'WRONG_TYPE':
         const { type, value } = errorData;
-        message = `Input has been invalidated:${ path ? ` (path: ${ path })` : '' } (indicator: ${type}) (typeof value: ${ typeof value }) (value: ${ stringify(value) })${originalValue ? ` (original value: ${ stringify(originalValue) })` : ''}`;
+        message = `Input has been invalidated:${ path ? ` (path: ${ path })` : '' } (indicator: ${type}) (typeof value: ${ typeof value }) (value: ${ stringify(value) })`;
         break;
       case 'WRONG_NUMBER_FIELD':
         const { expected, received } = errorData;
-        message = `Incorrect amount of object fields:${ path ? ` (path: ${ path })` : '' } (expected fields: ${JSON.stringify(expected)}) (received fields: ${JSON.stringify(received)})${originalValue ? ` (original value: ${ stringify(originalValue) })` : ''}`;
-        break;
+        message = `Incorrect amount of object fields:${ path ? ` (path: ${ path })` : '' } (expected fields: ${JSON.stringify(expected)}) (received fields: ${JSON.stringify(received)})`;
+        break; 
       case 'FIELD_IS_NOT_AN_INDICATOR':
         message = `${path} is not a correct indicator`
         break;
@@ -27,6 +27,6 @@ export class ValidationError extends Error {
     
     super(message)
     this.name = 'ValidationError'
-    this.errorData = errorData;
+    this.errorData = {...errorData, path};
   }
 }

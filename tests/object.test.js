@@ -61,7 +61,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: number) (typeof value: boolean) (value: false) (original value: {"a":false,"b":"str","c":true})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: number) (typeof value: boolean) (value: false)');
 
     data = {
       a: 3,
@@ -69,7 +69,7 @@ describe('object', () => {
       c: true,
     };
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b) (indicator: string) (typeof value: number) (value: 4) (original value: {"a":3,"b":4,"c":true})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b) (indicator: string) (typeof value: number) (value: 4)');
 
     data = {
       a: 3,
@@ -77,7 +77,7 @@ describe('object', () => {
       c: 5,
     };
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .c) (indicator: boolean) (typeof value: number) (value: 5) (original value: {"a":3,"b":"str","c":5})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .c) (indicator: boolean) (typeof value: number) (value: 5)');
   });
 
   it('validates correct nested objects', () => {
@@ -157,7 +157,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a.aa) (indicator: number) (typeof value: string) (value: "str") (original value: {"a":{"aa":"str","ab":true},"b":{"ba":"str","bb":{"bba":true}},"c":33})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a.aa) (indicator: number) (typeof value: string) (value: "str")');
 
     data = {
       a: {
@@ -172,7 +172,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow('Incorrect amount of object fields: (path: .a) (expected fields: ["aa","ab"]) (received fields: ["aa"]) (original value: {"a":{"aa":3},"b":{"ba":"str","bb":{"bba":true}},"c":33})');
+    expect(() => validator(data)).toThrow('Incorrect amount of object fields: (path: .a) (expected fields: ["aa","ab"]) (received fields: ["aa"])');
 
     data = {
       a: undefined,
@@ -185,7 +185,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: non-array object) (typeof value: undefined) (value: undefined) (original value: {"b":{"ba":"str","bb":{"bba":true}},"c":33})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .a) (indicator: non-array object) (typeof value: undefined) (value: undefined)');
 
     data = {
       a: {
@@ -201,7 +201,7 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.bb.bba) (indicator: boolean) (typeof value: number) (value: 3) (original value: {"a":{"aa":3,"ab":false},"b":{"ba":"str","bb":{"bba":3}},"c":33})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.bb.bba) (indicator: boolean) (typeof value: number) (value: 3)');
 
     data = {
       a: {
@@ -215,6 +215,6 @@ describe('object', () => {
       c: 33,
     }
 
-    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.ba) (indicator: string) (typeof value: undefined) (value: undefined) (original value: {"a":{"aa":3,"ab":false},"b":{"x":"str","y":["a"]},"c":33})');
+    expect(() => validator(data)).toThrow('Input has been invalidated: (path: .b.ba) (indicator: string) (typeof value: undefined) (value: undefined)');
   });
 });
