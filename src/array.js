@@ -5,7 +5,9 @@ import { stringify } from "./utils";
 export const array = indicator => {
   const res = (val, path=[], originalValue) => {
     originalValue = originalValue === undefined ? val : originalValue;
-    array.type(val, path);
+
+    array.type(val, path, originalValue);
+    
     for (let i = 0; i < val.length; i++) {
       indicator(val[i], [...path, i], originalValue);
     }
