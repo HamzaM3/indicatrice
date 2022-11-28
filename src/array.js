@@ -1,6 +1,5 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { ValidationError } from '../src/ValidationError';
-import { stringify } from "./utils";
+import { ValidationError } from './ValidationError';
 
 export const array = indicator => {
   const res = (val, path=[], originalValue) => {

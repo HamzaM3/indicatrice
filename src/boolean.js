@@ -1,5 +1,5 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { ValidationError } from '../src/ValidationError';
+import { ValidationError } from './ValidationError';
 
 export const boolean = (val, path, originalValue) => {
   if (typeof val === 'boolean') return val

@@ -1,5 +1,5 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { ValidationError } from '../src/ValidationError';
+import { ValidationError } from './ValidationError';
 
 export const json = function json(val) {
   if (val === null || val === undefined) return val;

@@ -1,5 +1,5 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { ValidationError } from '../src/ValidationError';
+import { ValidationError } from './ValidationError';
 
 export const object = fields => {
   const res = (val, path=[], originalValue) => {

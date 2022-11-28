@@ -1,6 +1,5 @@
 import indicatorSymbol from "./indicatorSymbol";
-import { ValidationError } from '../src/ValidationError';
-import { stringify } from "./utils";
+import { ValidationError } from './ValidationError';
 
 export const string = (val, path, originalValue) => {
   if (typeof val === 'string') return val
