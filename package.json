@@ -2,7 +2,8 @@
   "name": "indicatrice",
   "version": "0.4.1",
   "description": "A library for validating data cleanly",
-  "main": "src/index.js",
+  "main": "cjs/index.js",
+  "module": "src/index.js",
   "files": [
     "./cjs/*",
     "./src/*"
